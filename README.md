@@ -1,1 +1,1 @@
-# album-api-using-prisma
+# intital-commit

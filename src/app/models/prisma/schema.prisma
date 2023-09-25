@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserAuth{
+  id String @id @default(uuid())
+  email String @unique
+  password  String
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Albums{
+  id String @id @default(uuid())
+  contentid String @unique
+  title String 
+  poster_image String
+  description String
+  running_time String
+  release_year String
+  tags String
+  albumProduction AlbumProduction[]
+  albumCast AlbumCast[]
+  albumLanguage AlbumLanguage[]
+  albumPlatform AlbumPlatform[]
+  albumDirector AlbumDirector[]
+  albumAuthor AlbumAuthor[]
+  albumCountry AlbumCountry[]
+  albumGenre AlbumGenre[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model AlbumProduction{
+  id String @id @default(uuid())
+  production_name String
+  contentid String
+  content Albums @relation(fields:[contentid],references:[contentid])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model AlbumCast{
+  id String @id @default(uuid())
+  castname String 
+  contentid String
+  cast Albums @relation(fields:[contentid],references:[contentid])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AlbumPlatform{
+  id String @id @default(uuid())
+  platformname String
+  contentid String
+  platformposterimage String
+  albumlink String
+
+  platform Albums @relation(fields:[contentid],references:[contentid])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+model AlbumDirector{
+  id String @id @default(uuid())
+  directorname String
+  contentid String
+
+  director Albums @relation(fields:[contentid],references:[contentid])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AlbumAuthor{
+  id String @id @default(uuid())
+  authorname String
+  contentid String
+
+  author Albums @relation(fields:[contentid],references:[contentid])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model AlbumCountry{
+  id String @id @default(uuid())
+  albumcountry String
+  contentid String
+
+  country Albums @relation(fields:[contentid],references:[contentid])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model AlbumGenre{
+  id String @id @default(uuid())
+  albumgenre String
+  contentid String
+
+  genre Albums @relation(fields:[contentid],references:[contentid])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model AlbumLanguage{
+  id String @id @default(uuid())
+  albumlanguage String
+  contentid String
+
+  language Albums @relation(fields:[contentid],references:[contentid])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

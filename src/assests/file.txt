@@ -1,0 +1,1 @@
+in this folder we usually add images and files stc. which has to be used mainly for frontend purpose
